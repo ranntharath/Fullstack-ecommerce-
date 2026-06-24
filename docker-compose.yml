@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./morktinh-backend
+      dockerfile: Dockerfile
+    container_name: morktinh-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./morktinh-backend/.env
+    restart: always
+
+  frontend:
+    build:
+      context: ./morktinh-frontend
+      dockerfile: Dockerfile
+      # Removed target: dev to let it build the final "runner" stage
+    container_name: morktinh-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./morktinh-frontend/.env
+    restart: always
+    depends_on:
+      - backend
