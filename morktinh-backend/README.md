@@ -20,7 +20,7 @@ http://localhost:8000/admin/
 - Django
 - Django REST Framework
 - Simple JWT
-- SQLite for local development
+- PostgreSQL
 - django-cors-headers
 - Pillow for image uploads
 - django-cleanup for file cleanup
@@ -49,7 +49,6 @@ morktinh-backend/
     wsgi.py
     asgi.py
   media/
-  db.sqlite3
   manage.py
   requirements.txt
 ```
@@ -69,10 +68,26 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
+Create a PostgreSQL database and copy `.env.example` to `.env`. Configure:
+
+```text
+POSTGRES_DB=morktinh
+POSTGRES_USER=morktinh
+POSTGRES_PASSWORD=change-this-database-password
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+```
+
 Run migrations:
 
 ```powershell
 python manage.py migrate
+```
+
+Docker Compose starts PostgreSQL automatically:
+
+```powershell
+docker compose up --build
 ```
 
 Create an admin user:
@@ -104,6 +119,9 @@ AUTH_USER_MODEL = 'users.User'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 ```
+
+PostgreSQL connection settings are read from the `POSTGRES_*` environment
+variables shown in the local setup section.
 
 JWT uses Bearer auth:
 
@@ -2525,7 +2543,7 @@ Before production:
 - Move `SECRET_KEY` to an environment variable.
 - Move email credentials to environment variables.
 - Configure `ALLOWED_HOSTS`.
-- Use a production database instead of local SQLite.
+- Use a strong PostgreSQL password and keep it outside version control.
 - Configure static and media file hosting.
 - Add proper logging.
 - Add pagination for large product lists.

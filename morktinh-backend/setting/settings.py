@@ -120,8 +120,14 @@ WSGI_APPLICATION = 'setting.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('POSTGRES_DB', default='morktinh'),
+        'USER': config('POSTGRES_USER', default='morktinh'),
+        'PASSWORD': config('POSTGRES_PASSWORD', default='morktinh'),
+        'HOST': config('POSTGRES_HOST', default='localhost'),
+        'PORT': config('POSTGRES_PORT', default=5432, cast=int),
+        'CONN_MAX_AGE': config('POSTGRES_CONN_MAX_AGE', default=60, cast=int),
+        'CONN_HEALTH_CHECKS': True,
     }
 }
 

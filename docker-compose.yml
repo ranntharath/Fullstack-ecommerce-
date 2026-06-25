@@ -1,4 +1,20 @@
 services:
+  db:
+    image: postgres:17-alpine
+    container_name: morktinh-db
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./morktinh-backend/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: always
+
   backend:
     build:
       context: ./morktinh-backend
@@ -8,10 +24,17 @@ services:
       - "8000:8000"
     env_file:
       - ./morktinh-backend/.env
+    environment:
+      POSTGRES_HOST: db
     volumes:
-      - ./morktinh-backend/db.sqlite3:/app/db.sqlite3
       - ./morktinh-backend/media:/app/media
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn --bind 0.0.0.0:8000 setting.wsgi:application"
     restart: always
+    depends_on:
+      db:
+        condition: service_healthy
 
   frontend:
     build:
@@ -26,3 +49,6 @@ services:
     restart: always
     depends_on:
       - backend
+
+volumes:
+  postgres_data:

@@ -8,3 +8,4 @@ djangorestframework-simplejwt[crypto]
 bakong-khqr
 python-decouple
 gunicorn
+psycopg[binary]
