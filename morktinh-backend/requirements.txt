@@ -1,0 +1,10 @@
+django
+pillow
+qrcode
+djangorestframework
+django-cleanup
+django-cors-headers
+djangorestframework-simplejwt[crypto]
+bakong-khqr
+python-decouple
+gunicorn
