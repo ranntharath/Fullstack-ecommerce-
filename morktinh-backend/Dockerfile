@@ -49,7 +49,7 @@ COPY --from=builder /opt/venv /opt/venv
 COPY . .
 
 # Security: Create a non-root user and give them ownership of the app files
-RUN useradd -m django && chown -R django:django /app
+RUN mkdir -p /app/staticfiles /app/media && useradd -m django && chown -R django:django /app
 USER django
 
 EXPOSE 8000
