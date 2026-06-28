@@ -39,7 +39,7 @@ services:
       context: ./morktinh-frontend
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: /api/
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
     container_name: morktinh-frontend
     expose:
       - "3000"
