@@ -40,7 +40,8 @@ services:
     build:
       context: ./morktinh-frontend
       dockerfile: Dockerfile
-      # Removed target: dev to let it build the final "runner" stage
+      args:
+        NEXT_PUBLIC_API_URL: http://127.0.0.1:8000/api/
     container_name: morktinh-frontend
     ports:
       - "3000:3000"
