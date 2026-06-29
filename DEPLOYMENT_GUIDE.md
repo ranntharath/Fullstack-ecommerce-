@@ -184,7 +184,7 @@ server {
     ssl_ciphers HIGH:!aNULL:!MD5;
 
     # 1. Route to Django Admin
-    location /admin/ {
+    location /django-admin/ {
         proxy_pass http://backend:8000;
         proxy_http_version 1.1;
         proxy_set_header Host $http_host;
