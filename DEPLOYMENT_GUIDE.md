@@ -85,7 +85,7 @@ sudo systemctl start docker
    # Email settings
    EMAIL_HOST=smtp.gmail.com
    EMAIL_PORT=587
-   EMAIL_HOST_USER=tharath8061@gmail.com
+   EMAIL_HOST_USER=your-email@gmail.com
    EMAIL_HOST_PASSWORD=your-email-app-password
    EMAIL_USE_TLS=True
    ```
