@@ -54,10 +54,12 @@ services:
     container_name: morktinh-nginx
     ports:
       - "${NGINX_PORT:-80}:80"
+      - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./morktinh-backend/media:/media:ro
       - django_static:/static:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     restart: unless-stopped
     depends_on:
       - frontend
